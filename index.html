@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASI Insurance Project</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .bg-image {
+            background-image: url('CSI.jpg'); /* Replace 'your-image.jpg' with your image file */
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            right: 0;
+            z-index: 1;
+        }
+        .bg-text {
+            background-color: rgba(255, 255, 255, 0.5); /* White text background with some opacity */
+            color: black;
+            font-weight: bold;
+            border: 3px solid #f1f1f1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-image"></div>
+
+<div class="bg-text">
+    <h1>ASI Insurance Project</h1>
+    <p>ASI Insurance is facing challenges in improving the SLA to its customers
+    due to its organizational growth and existing monolithic application
+    architecture. It requires transformation of the existing architecture to a
+    microservice application architecture, while also implementing DevOps
+    pipeline and automations.</p>
+    <p><strong>Project completed successfully</strong></p>
+</div>
+
+</body>
+</html>

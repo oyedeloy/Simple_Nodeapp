@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define Docker image and tag
-        DOCKER_IMAGE = 'oyedeloy/Simple_Nodeapp' // Replace with your actual Docker image name
+        DOCKER_IMAGE = 'oyedeloy/simple_nodeapp' // Replace with your actual Docker image name
         DOCKER_TAG = 'Version_01' // Replace with your actual Docker tag
         // Define registry credentials ID
         DOCKER_CREDENTIALS_ID = 'Docker_hub'

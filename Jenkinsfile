@@ -2,38 +2,58 @@ pipeline {
     agent any
 
     environment {
-        // Define Docker image and tag
+        // Docker environment variables
         DOCKER_IMAGE = 'oyedeloy/simple_nodeapp' // Replace with your actual Docker image name
         DOCKER_TAG = 'Version_01' // Replace with your actual Docker tag
-        // Define registry credentials ID
         DOCKER_CREDENTIALS_ID = 'Docker_hub'
+
+        // AWS environment variable
+        AWS_REGION = 'us-east-2'
     }
 
     stages {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    // Log in to Docker Hub and build/push the Docker image
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
-                        // Building Docker image
                         def app = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}", "-f Dockerfile .")
-
-                        // Pushing Docker image
                         app.push()
                     }
                 }
             }
         }
 
-        // You can add other stages like testing, deployment, etc., here
+        stage('Terraform Apply') {
+            environment {
+                AWS_ACCESS_KEY_ID = credentials('ACCESS_KEY')
+                AWS_SECRET_ACCESS_KEY = credentials('SECRET_KEY')
+            }
+            steps {
+                sh 'terraform init'
+                sh 'terraform plan'
+                sh 'terraform destroy -auto-approve'
+            }
+        }
+
+        stage('Run Ansible Playbook') {
+            steps {
+                script {
+                    sshagent(credentials: ['ec2-user']) {
+                        sh 'sudo ansible-playbook -i /home/dele/Inventory --user ubuntu --private-key /home/dele/Java_key2.pem config.yml --vault-password-file /home/dele/vault_password.txt'
+                    }
+                }
+            }
+        }
+
+        // Additional stages from your original Jenkinsfiles can be added here
     }
 
     post {
         success {
-            echo 'Docker image build and push to Docker Hub completed successfully.'
+            echo 'Pipeline executed successfully.'
         }
         failure {
-            echo 'Docker image build and push to Docker Hub failed.'
+            echo 'Pipeline failed.'
         }
     }
 }

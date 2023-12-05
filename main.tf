@@ -63,6 +63,7 @@ resource "aws_instance" "ASI_web" {
     private_key = file(local.private_key_path2)
     timeout = "4m"
   }
+}
 
 
 # Use a local-exec provisioner to define ansible behavior

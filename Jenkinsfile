@@ -35,16 +35,6 @@ pipeline {
             }
         }
 
-        stage('Run Ansible Playbook') {
-            steps {
-                script {
-                    sshagent(credentials: ['ec2-user']) {
-                        sh 'sudo ansible-playbook -i /home/dele/Inventory --user ubuntu --private-key /home/dele/Java_key2.pem config.yml --vault-password-file /home/dele/vault_password.txt'
-                    }
-                }
-            }
-        }
-
         // Additional stages from your original Jenkinsfiles can be added here
     }
 

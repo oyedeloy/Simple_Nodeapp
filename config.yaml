@@ -1,6 +1,6 @@
 ---
 - name: Install Docker, Pull and Run Docker Container
-  hosts: your_target_hosts # Replace with your target hosts
+  hosts: all # Replace with your target hosts
   become: yes # Use sudo privileges
   tasks:
     - name: Install required system packages

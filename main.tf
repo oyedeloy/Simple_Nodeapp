@@ -79,11 +79,7 @@ provisioner "local-exec" {
     echo "${aws_instance.ASI_web.public_ip}" > ${local.inventory_path}
   EOT
 }
-provisioner "local-exec" {
-    #To execute the ansible playbook
-    command = "ansible-playbook -i /home/dele/Inventory --user ubuntu --private-key /home/dele/Java_key2.pem config.yaml"
 
-}
 }
 
 # Output the public IP address of the EC2 instance

@@ -34,6 +34,17 @@ pipeline {
                 sh 'terraform apply -auto-approve'
             }
         }
+        stage('Invoke ansible playbook') {
+            steps {
+                script {
+                    // Add your SSH key credential here for Ansible
+                    sshagent(credentials: ['ec2-user']) {
+                        sh 'sudo ansible-playbook -i /home/dele/Inventory --user ubuntu --private-key /home/dele/Java_key2.pem config.yaml --vault-password-file /home/dele/vault_password.txt'
+                    }
+                }
+            }
+        }
+            
 
         // Additional stages from your original Jenkinsfiles can be added here
     }

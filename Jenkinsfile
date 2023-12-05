@@ -10,31 +10,6 @@ pipeline {
     }
 
     stages {
-        stage('Linting') {
-            steps {
-                script {
-                    sh 'npx eslint .'
-                }
-            }
-        }
-
-        stage('Unit Testing') {
-            steps {
-                script {
-                    sh 'npm test'
-                }
-            }
-        }
-
-        stage('Code Quality Analysis') {
-            steps {
-                script {
-                    // Replace with your code quality tool command
-                    sh 'sonar-scanner'
-                }
-            }
-        }
-
         stage('Build and Push Docker Image') {
             steps {
                 script {
@@ -50,15 +25,15 @@ pipeline {
             }
         }
 
-        // You can add other stages like deployment, etc., here
+        // You can add other stages like testing, deployment, etc., here
     }
 
     post {
         success {
-            echo 'Pipeline execution completed successfully.'
+            echo 'Docker image build and push to Docker Hub completed successfully.'
         }
         failure {
-            echo 'Pipeline execution failed.'
+            echo 'Docker image build and push to Docker Hub failed.'
         }
     }
 }

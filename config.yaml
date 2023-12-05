@@ -1,0 +1,44 @@
+---
+- name: Install Docker, Pull and Run Docker Container
+  hosts: your_target_hosts # Replace with your target hosts
+  become: yes # Use sudo privileges
+  tasks:
+    - name: Install required system packages
+      apt:
+        name: 
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        update_cache: yes
+
+    - name: Add Docker's official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        update_cache: yes
+        state: latest
+
+    - name: Pull Docker Image
+      docker_image:
+        name: oyedeloy/imple_nodeapp # Replace with your Docker image path
+        source: pull
+
+    - name: Create and Run Container
+      docker_container:
+        name: node_app # Replace with your desired container name
+        image: oyedeloy/imple_nodeapp # Replace with your Docker image path
+        state: started
+        restart_policy: always
+        ports: # Map ports if necessary, or remove this section
+          - "80:80"
+          - "443:443"

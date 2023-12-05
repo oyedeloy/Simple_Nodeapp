@@ -33,8 +33,8 @@
   become: yes  # If you need elevated privileges, set to 'yes' and provide sudo password
   vars:
     remote_image_name: "oyedeloy/simple_nodeapp"  # Replace with your Docker Hub image name
-    remote_image_tag: "Version_01"
-    container_name: "node-app-container"
+    remote_image_tag: "Version_02"
+    container_name: "node-app-container2"
   tasks:
     - name: Pull Docker Image from Docker Hub
       shell: |

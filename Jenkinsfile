@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Docker environment variables
         DOCKER_IMAGE = 'oyedeloy/simple_nodeapp' // Replace with your actual Docker image name
-        DOCKER_TAG = 'Version_01' // Replace with your actual Docker tag
+        DOCKER_TAG = 'Version_02' // Replace with your actual Docker tag
         DOCKER_CREDENTIALS_ID = 'Docker_hub'
 
         // AWS environment variable

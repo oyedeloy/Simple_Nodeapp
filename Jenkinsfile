@@ -29,7 +29,7 @@ pipeline {
             steps {
                 sh 'terraform init'
                 sh 'terraform plan'
-                sh 'terraform destroy -auto-approve'
+                sh 'terraform apply -auto-approve'
                 script {
                     // Capture the public IP output from Terraform
                     EC2_IP = sh(script: "terraform output public_ip", returnStdout: true).trim()

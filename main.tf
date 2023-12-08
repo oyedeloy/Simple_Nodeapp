@@ -1,4 +1,3 @@
-# We use local variables to simplify values that will be reused throuout the code
 locals {
   ami_id          = "ami-024e6efaf93d85776"
   vpc_id          = "vpc-058d2f6e"
@@ -35,6 +34,14 @@ resource "aws_security_group" "ASI_proj" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  // Add ICMP ingress rule
+  ingress {
+    from_port   = -1  // -1 refers to all ICMP codes
+    to_port     = -1  // -1 refers to all ICMP types
+    protocol    = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]  // Adjust as needed
+  }
+
   // Egress rule to allow all outbound traffic
   egress {
     from_port   = 0
@@ -49,12 +56,11 @@ resource "aws_instance" "ASI_web" {
   instance_type = "t3.micro"
   key_name      = local.key_name
   associate_public_ip_address = true
-  #  vpc_id     = local.vpc_id
-  security_groups = [aws_security_group.ASI_proj.name]  
-  
+  security_groups = [aws_security_group.ASI_proj.name]
+
   tags = {
     Name = "ASI test"
-     }
+  }
 
   connection {
     type = "ssh"
@@ -64,22 +70,19 @@ resource "aws_instance" "ASI_web" {
     timeout = "4m"
   }
 
+  # Use a local-exec provisioner to define ansible behavior
+  provisioner "local-exec" {
+    command = <<EOT
+      export ANSIBLE_SSH_ARGS="-o StrictHostKeyChecking=no"
+    EOT
+  }
 
-
-# Use a local-exec provisioner to define ansible behavior
-provisioner "local-exec" {
-  command = <<EOT
-    
-    export ANSIBLE_SSH_ARGS="-o StrictHostKeyChecking=no"
-  EOT
-}
-# Use a local-exec provisioner to export the public IP to a file
-provisioner "local-exec" {
-  command = <<-EOT
-    echo "${aws_instance.ASI_web.public_ip}" > ${local.inventory_path}
-  EOT
-}
-
+  # Use a local-exec provisioner to export the public IP to a file
+  provisioner "local-exec" {
+    command = <<-EOT
+      echo "${aws_instance.ASI_web.public_ip}" > ${local.inventory_path}
+    EOT
+  }
 }
 
 # Output the public IP address of the EC2 instance

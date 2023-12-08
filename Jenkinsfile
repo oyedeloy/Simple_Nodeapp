@@ -7,10 +7,15 @@ pipeline {
         DOCKER_TAG = 'Version_02' // Replace with your actual Docker tag
         DOCKER_CREDENTIALS_ID = 'Docker_hub'
         AWS_REGION = 'us-east-2'
+        // Add a variable to control the flow based on Terraform operation
+        TERRAFORM_OPERATION = 'destroy' // Default to 'apply', change to 'destroy' as needed
     }
 
     stages {
         stage('Build and Push Docker Image') {
+            when {
+                expression { TERRAFORM_OPERATION == 'apply' }
+            }
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
@@ -21,7 +26,7 @@ pipeline {
             }
         }
 
-        stage('Terraform Apply') {
+        stage('Terraform Operation') {
             environment {
                 AWS_ACCESS_KEY_ID = credentials('ACCESS_KEY')
                 AWS_SECRET_ACCESS_KEY = credentials('SECRET_KEY')
@@ -29,15 +34,20 @@ pipeline {
             steps {
                 sh 'terraform init'
                 sh 'terraform plan'
-                sh 'terraform apply -auto-approve'
+                sh "terraform ${TERRAFORM_OPERATION} -auto-approve"
                 script {
-                    // Capture the public IP output from Terraform
-                    EC2_IP = sh(script: "terraform output public_ip", returnStdout: true).trim()
+                    if (TERRAFORM_OPERATION == 'apply') {
+                        // Capture the public IP output from Terraform
+                        EC2_IP = sh(script: "terraform output public_ip", returnStdout: true).trim()
+                    }
                 }
             }
         }
 
         stage('Check EC2 Instance Readiness') {
+            when {
+                expression { TERRAFORM_OPERATION == 'apply' }
+            }
             steps {
                 script {
                     def instanceReady = false
@@ -55,6 +65,9 @@ pipeline {
         }
 
         stage('Invoke ansible playbook') {
+            when {
+                expression { TERRAFORM_OPERATION == 'apply' }
+            }
             steps {
                 script {
                     sshagent(credentials: ['ec2-user']) {
@@ -64,7 +77,7 @@ pipeline {
             }
         }
 
-        // Additional stages from your original Jenkinsfiles can be added here
+        // Additional stages can be added here
     }
 
     post {

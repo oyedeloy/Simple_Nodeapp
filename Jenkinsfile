@@ -8,7 +8,7 @@ pipeline {
         DOCKER_CREDENTIALS_ID = 'Docker_hub'
         AWS_REGION = 'us-east-2'
         // Add a variable to control the flow based on Terraform operation
-        TERRAFORM_OPERATION = 'destroy' // Default to 'apply', change to 'destroy' as needed
+        TERRAFORM_OPERATION = 'apply' // Default to 'apply', change to 'destroy' as needed
     }
 
     stages {

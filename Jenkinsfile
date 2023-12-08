@@ -29,9 +29,11 @@ pipeline {
             steps {
                 sh 'terraform init'
                 sh 'terraform plan'
-                sh 'terraform destroy -auto-approve'
-                // Capture the public IP output from Terraform
-                EC2_IP = sh(script: "terraform output public_ip", returnStdout: true).trim()
+                sh 'terraform apply -auto-approve'
+                script {
+                    // Capture the public IP output from Terraform
+                    EC2_IP = sh(script: "terraform output public_ip", returnStdout: true).trim()
+                }
             }
         }
 
@@ -62,7 +64,7 @@ pipeline {
             }
         }
 
-        // Additional stages from your original Jenkinsfile can be added here
+        // Additional stages from your original Jenkinsfiles can be added here
     }
 
     post {

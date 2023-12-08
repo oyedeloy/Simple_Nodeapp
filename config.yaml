@@ -1,0 +1,47 @@
+---
+- name: Install Docker, Pull and Run Docker Container
+  hosts: all # Replace with your target hosts
+  become: yes # Use sudo privileges
+  tasks:
+    - name: Install required system packages
+      apt:
+        name: 
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        update_cache: yes
+
+    - name: Add Docker's official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        update_cache: yes
+        state: latest
+
+- name: Pull Docker Image from Docker Hub and Run Container
+  hosts: all  # Replace with the hostname or group of hosts for the remote server
+  become: yes  # If you need elevated privileges, set to 'yes' and provide sudo password
+  vars:
+    remote_image_name: "oyedeloy/simple_nodeapp"  # Replace with your Docker Hub image name
+    remote_image_tag: "Version_02"
+    container_name: "node-app-container2"
+  tasks:
+    - name: Pull Docker Image from Docker Hub
+      shell: |
+        docker pull "{{ remote_image_name }}:{{ remote_image_tag }}"
+      register: docker_pull_result
+
+    - name: Run Docker Container
+      shell: |
+        docker run -d --name "{{ container_name }}" -p 8080:8080 "{{ remote_image_name }}:{{ remote_image_tag }}"
+      when: docker_pull_result.rc == 0  # Only run the container if the image was successfully pulled

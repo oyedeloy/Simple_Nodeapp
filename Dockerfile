@@ -8,5 +8,5 @@ COPY . .
 # Stage 2: Serve stage
 FROM nginx:alpine
 COPY --from=build /app/public /usr/share/nginx/html
-EXPOSE 8080
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

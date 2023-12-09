@@ -1,6 +1,6 @@
 Started by user Oyedele Oyeleye
-17:13:33 Connecting to https://api.github.com with no credentials, anonymous access
-Obtained Jenkinsfile from b700a05969a5e35fb83d3814666955b0c426f438
+19:49:43 Connecting to https://api.github.com with no credentials, anonymous access
+Obtained Jenkinsfile from dc4b6bd409f8582acefd1457de4d29306fb7eff9
 [Pipeline] Start of Pipeline
 [Pipeline] node
 Running on Jenkins in /var/lib/jenkins/workspace/Simplilearn_Capstone1_master
@@ -18,11 +18,11 @@ Fetching upstream changes from https://github.com/oyedeloy/Simple_Nodeapp.git
  > git --version # timeout=10
  > git --version # 'git version 2.34.1'
  > git fetch --no-tags --force --progress -- https://github.com/oyedeloy/Simple_Nodeapp.git +refs/heads/master:refs/remotes/origin/master # timeout=10
-Checking out Revision b700a05969a5e35fb83d3814666955b0c426f438 (master)
+Checking out Revision dc4b6bd409f8582acefd1457de4d29306fb7eff9 (master)
  > git config core.sparsecheckout # timeout=10
- > git checkout -f b700a05969a5e35fb83d3814666955b0c426f438 # timeout=10
+ > git checkout -f dc4b6bd409f8582acefd1457de4d29306fb7eff9 # timeout=10
 Commit message: "Ec2 readiness testing"
- > git rev-list --no-walk dd2d42c708d205f70dc57c1253bcbf44492acb4b # timeout=10
+ > git rev-list --no-walk e7cf9c9924e2674d5821faee1397466b007e6f92 # timeout=10
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] withEnv
@@ -38,7 +38,7 @@ Commit message: "Ec2 readiness testing"
 [Pipeline] withDockerRegistry
 $ docker login -u oyedeloy@gmail.com -p ******** https://registry.hub.docker.com
 WARNING! Using --password via the CLI is insecure. Use --password-stdin.
-WARNING! Your password will be stored unencrypted in /var/lib/jenkins/workspace/Simplilearn_Capstone1_master@tmp/91904718-175c-4b2d-977b-259d4ac23db9/config.json.
+WARNING! Your password will be stored unencrypted in /var/lib/jenkins/workspace/Simplilearn_Capstone1_master@tmp/e185feaa-6171-4de2-b9f3-e74c44dd858f/config.json.
 Configure a credential helper to remove this warning. See
 https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 
@@ -67,19 +67,19 @@ Step 4/9 : RUN npm install
  ---> Using cache
  ---> d7610fc3e5bc
 Step 5/9 : COPY . .
- ---> 507a99e9540c
+ ---> ae1fe4d8e6b6
 Step 6/9 : FROM nginx:alpine
  ---> b135667c9898
 Step 7/9 : COPY --from=build /app/public /usr/share/nginx/html
  ---> Using cache
  ---> a23da67207c0
-Step 8/9 : EXPOSE 8080
+Step 8/9 : EXPOSE 80
  ---> Using cache
- ---> 481ec4d9de13
+ ---> 53b2ece701f8
 Step 9/9 : CMD ["nginx", "-g", "daemon off;"]
  ---> Using cache
- ---> 5c3804b8e76d
-Successfully built 5c3804b8e76d
+ ---> dfa2085acad3
+Successfully built dfa2085acad3
 Successfully tagged oyedeloy/simple_nodeapp:Version_02
 [Pipeline] }
 [Pipeline] // withEnv
@@ -109,16 +109,16 @@ cc2447e1835a: Preparing
 38067ed663bf: Waiting
 81fdcc81a9d0: Waiting
 cc2447e1835a: Waiting
-01e36c0e0b84: Layer already exists
-f126bda54112: Layer already exists
-901e6dddcc99: Layer already exists
-dde4c61f9eb7: Layer already exists
 4b701b99fec7: Layer already exists
+dde4c61f9eb7: Layer already exists
+901e6dddcc99: Layer already exists
+f126bda54112: Layer already exists
+01e36c0e0b84: Layer already exists
 38067ed663bf: Layer already exists
 854101110f63: Layer already exists
-81fdcc81a9d0: Layer already exists
 cc2447e1835a: Layer already exists
-Version_02: digest: sha256:30037946245a4005a028344c98c1ab4c6946231300e37b93b865d7f9b365cd70 size: 2200
+81fdcc81a9d0: Layer already exists
+Version_02: digest: sha256:933aa679bc144e887ee334ece76ca14b76185ebb05c63e21e8b56798569e8fdf size: 2200
 [Pipeline] }
 [Pipeline] // withEnv
 [Pipeline] }
@@ -450,20 +450,20 @@ Terraform will perform the following actions:
 Changes to Outputs:
   [32m+[0m[0m public_ip = (known after apply)
 [0m[1maws_security_group.ASI_proj: Creating...[0m[0m
-[0m[1maws_security_group.ASI_proj: Creation complete after 3s [id=sg-015cc360364cbf36b][0m
+[0m[1maws_security_group.ASI_proj: Creation complete after 3s [id=sg-017dfac46012406ba][0m
 [0m[1maws_instance.ASI_web: Creating...[0m[0m
 [0m[1maws_instance.ASI_web: Still creating... [10s elapsed][0m[0m
 [0m[1maws_instance.ASI_web: Provisioning with 'local-exec'...[0m[0m
 [0m[1maws_instance.ASI_web (local-exec):[0m [0mExecuting: ["/bin/sh" "-c" "      export ANSIBLE_SSH_ARGS=\"-o StrictHostKeyChecking=no\"\n"]
 [0m[1maws_instance.ASI_web: Provisioning with 'local-exec'...[0m[0m
-[0m[1maws_instance.ASI_web (local-exec):[0m [0mExecuting: ["/bin/sh" "-c" "echo \"52.14.134.17\" > /home/dele/Inventory\n"]
-[0m[1maws_instance.ASI_web: Creation complete after 13s [id=i-01f278b6cd627e158][0m
+[0m[1maws_instance.ASI_web (local-exec):[0m [0mExecuting: ["/bin/sh" "-c" "echo \"18.116.199.41\" > /home/dele/Inventory\n"]
+[0m[1maws_instance.ASI_web: Creation complete after 14s [id=i-07242c279884d037a][0m
 [0m[1m[32m
 Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 [0m[0m[1m[32m
 Outputs:
 
-[0mpublic_ip = "52.14.134.17"
+[0mpublic_ip = "18.116.199.41"
 [Pipeline] script
 [Pipeline] {
 [Pipeline] sh
@@ -479,22 +479,22 @@ Outputs:
 [Pipeline] script
 [Pipeline] {
 [Pipeline] sh
-+ ping -c 1 52.14.134.17
-PING 52.14.134.17 (52.14.134.17) 56(84) bytes of data.
++ ping -c 1 18.116.199.41
+PING 18.116.199.41 (18.116.199.41) 56(84) bytes of data.
 
---- 52.14.134.17 ping statistics ---
+--- 18.116.199.41 ping statistics ---
 1 packets transmitted, 0 received, 100% packet loss, time 0ms
 
 [Pipeline] sleep
 Sleeping for 30 sec
 [Pipeline] sh
-+ ping -c 1 52.14.134.17
-PING 52.14.134.17 (52.14.134.17) 56(84) bytes of data.
-64 bytes from 52.14.134.17: icmp_seq=1 ttl=43 time=67.3 ms
++ ping -c 1 18.116.199.41
+PING 18.116.199.41 (18.116.199.41) 56(84) bytes of data.
+64 bytes from 18.116.199.41: icmp_seq=1 ttl=44 time=64.4 ms
 
---- 52.14.134.17 ping statistics ---
+--- 18.116.199.41 ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 67.311/67.311/67.311/0.000 ms
+rtt min/avg/max/mdev = 64.444/64.444/64.444/0.000 ms
 [Pipeline] }
 [Pipeline] // script
 [Pipeline] }
@@ -508,8 +508,8 @@ FATAL: [ssh-agent] Could not find specified credentials
 [ssh-agent] Looking for ssh-agent implementation...
 [ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
 $ ssh-agent
-SSH_AUTH_SOCK=/tmp/ssh-XXXXXXwRT84f/agent.21749
-SSH_AGENT_PID=21752
+SSH_AUTH_SOCK=/tmp/ssh-XXXXXXC2WXzp/agent.30048
+SSH_AGENT_PID=30051
 [ssh-agent] Started.
 [Pipeline] {
 [Pipeline] sh
@@ -518,39 +518,39 @@ SSH_AGENT_PID=21752
 PLAY [Install Docker, Pull and Run Docker Container] ***************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [52.14.134.17]
+ok: [18.116.199.41]
 
 TASK [Install required system packages] ****************************************
-changed: [52.14.134.17]
+changed: [18.116.199.41]
 
 TASK [Add Docker's official GPG key] *******************************************
-changed: [52.14.134.17]
+changed: [18.116.199.41]
 
 TASK [Add Docker repository] ***************************************************
-changed: [52.14.134.17]
+changed: [18.116.199.41]
 
 TASK [Update apt and install docker-ce] ****************************************
-changed: [52.14.134.17]
+changed: [18.116.199.41]
 
 PLAY [Pull Docker Image from Docker Hub and Run Container] *********************
 
 TASK [Gathering Facts] *********************************************************
-ok: [52.14.134.17]
+ok: [18.116.199.41]
 
 TASK [Pull Docker Image from Docker Hub] ***************************************
-changed: [52.14.134.17]
+changed: [18.116.199.41]
 
 TASK [Run Docker Container] ****************************************************
-changed: [52.14.134.17]
+changed: [18.116.199.41]
 
 PLAY RECAP *********************************************************************
-52.14.134.17               : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+18.116.199.41              : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 [Pipeline] }
 $ ssh-agent -k
 unset SSH_AUTH_SOCK;
 unset SSH_AGENT_PID;
-echo Agent pid 21752 killed;
+echo Agent pid 30051 killed;
 [ssh-agent] Stopped.
 [Pipeline] // sshagent
 [Pipeline] }
